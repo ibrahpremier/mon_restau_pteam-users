@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 import { InscriptionComponent } from 'src/app/components/inscription/inscription.component';
+import { ProduitService } from 'src/app/services/produit.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { InscriptionComponent } from 'src/app/components/inscription/inscription
 })
 export class HomePage {
   categories: any[] = [];
- 
+  produits: any[] = [];
   totalPrix: number = 0;
   selectedPlat: any;
   loading = true;
@@ -30,12 +31,13 @@ export class HomePage {
     private router: Router,
     private routerLink: Router,
     private route: ActivatedRoute,
-    private modalController:ModalController
+    // private modalController:ModalController
+    private produitService: ProduitService
     
   ) {
 
     this.loadCategories();
-    this.globalService.loadPlats();
+    this.loadProduits();
     this.initializeQuantities(); // Appel de la méthode pour initialiser les quantités
     
   }
@@ -50,6 +52,7 @@ export class HomePage {
         }, 3000); // Cache le message après 3 secondes
       }
     });
+
     this.route.paramMap.subscribe(params => {
       this.client = params.get('client');
       if (this.client) {
@@ -72,13 +75,20 @@ export class HomePage {
   
   
 
-  getPlats() {
-    return this.globalService.plats;
+  loadProduits() {
+    this.produitService.getListProduit().subscribe({
+      next: (response: any) => {
+        this.produits = response.data;
+       
+      },
+      error: (error: any) => {
+        console.error('There was an error!', error);
+      }
+    });
   }
-
   
   loadCategories() {
-    this.globalService.getCategories().subscribe({
+    this.produitService.getCategories().subscribe({
       next: (response: any) => {
         this.categories = response.data;
        

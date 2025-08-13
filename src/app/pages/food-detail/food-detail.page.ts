@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
+import { ProduitService } from 'src/app/services/produit.service';
 
 @Component({
   selector: 'app-food-detail',
@@ -8,28 +9,29 @@ import { GlobalService } from 'src/app/services/global.service';
   styleUrls: ['./food-detail.page.scss'],
 })
 export class FoodDetailPage implements OnInit {
-  plat: any;
-  platId: number|null = null;
+  produit: any;
+  produitId: number|null = null;
 
   constructor(
     public globalService: GlobalService,
     private router: Router,
     private route: ActivatedRoute,
+    private produitService: ProduitService
   ) { }
 
   ngOnInit() {
-    this.platId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.platId !== null) {
-      this.loadPlat(this.platId);
+    this.produitId = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.produitId !== null) {
+      this.loadProduit(this.produitId);
     }
   }
 
 
-  loadPlat(id: number) {
-    this.globalService.getPlat(id).subscribe({
+  loadProduit(id: number) {
+    this.produitService.getProduit(id).subscribe({
       next: (response: any) => {
-        this.plat = response.data;
-        this.plat.quantity = this.plat.quantity || 0;
+        this.produit = response.data;
+        this.produit.quantity = this.produit.quantity || 0;
       },
       error: (error: any) => {
         console.error('There was an error!', error);

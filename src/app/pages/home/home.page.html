@@ -54,7 +54,7 @@
   <!-- affiche la liste de tous les plat dans toutes les categories  -->
   <ion-row class="nos_categories">
     <ng-container >
-      <ng-container *ngFor="let item of globalService.plats">
+      <ng-container *ngFor="let item of produits">
         <ion-col size="6">
           <ion-card>
             <img  [routerLink]="['/food-detail', item.id]" 

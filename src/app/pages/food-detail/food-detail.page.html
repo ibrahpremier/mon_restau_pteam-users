@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar  *ngIf="plat">
-    <ion-title>{{ plat.nom}}</ion-title>
+  <ion-toolbar *ngIf="produit">
+    <ion-title>{{ produit.nom}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/category"></ion-back-button>
     </ion-buttons>
@@ -10,31 +10,31 @@
 <ion-content>
   <ion-row>
     <ion-col size="12" class="ion-no-padding">
-      <ion-card *ngIf="plat" class="ion-no-margin">
+      <ion-card *ngIf="produit" class="ion-no-margin">
         <img src="https://img.freepik.com/photos-gratuite/gros-plan-delicieuse-viande-rotie-legumes-sous-lumieres_181624-43643.jpg?t=st=1714797398~exp=1714800998~hmac=a65276258f50bc7a1934b5a6e4096a476f38109ef2891615b30a34879226a8e5&w=900"  alt="">
         <ion-card-header>
-          <ion-card-title>{{ plat.nom}}</ion-card-title>
+          <ion-card-title>{{ produit.nom}}</ion-card-title>
           <ion-card-content class="ion-no-padding">
-            {{ plat.description }}
+            {{ produit.description }}
           </ion-card-content>
-          <ion-card-title> $ {{ plat.prix }}</ion-card-title>
+          <ion-card-title> $ {{ produit.prix }}</ion-card-title>
         </ion-card-header>
         <ion-button color="danger" class="ion-no-border" shape="round">
-          <div class="btn-call" [hidden]="getQuantity(plat) === 0">
+          <div class="btn-call" [hidden]="getQuantity(produit) === 0">
             <!-- Lorsque la quantité est supérieure à 0 -->
-            <ion-button mode="ios" color="light" (click)="removeQuantity(plat)">
+            <ion-button mode="ios" color="light" (click)="removeQuantity(produit)">
               <ion-icon name="remove" slot="icon-only"></ion-icon>
             </ion-button>
             <ion-text>
-              <strong>{{ getQuantity(plat) }}</strong>
+              <strong>{{ getQuantity(produit) }}</strong>
             </ion-text>
-            <ion-button mode="ios" color="light" (click)="addQuantity(plat)">
+            <ion-button mode="ios" color="light" (click)="addQuantity(produit)">
               <ion-icon name="add" slot="icon-only"></ion-icon>
             </ion-button>
           </div>
-          <div class="btn-zero" [hidden]="getQuantity(plat) >= 1">
+          <div class="btn-zero" [hidden]="getQuantity(produit) >= 1">
             <!-- Lorsque la quantité est inférieure ou égale à 0, et que le contenu est affiché -->
-            <ion-button mode="ios" color="light" (click)="addQuantity(plat)">
+            <ion-button mode="ios" color="light" (click)="addQuantity(produit)">
               <ion-icon name="add" slot="icon-only"></ion-icon>
             </ion-button>
           </div>
